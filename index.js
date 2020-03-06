@@ -1,17 +1,28 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const fs = require("fs");
 
 // for bot secret
-require('dotenv').config()
+require("dotenv").config();
 
-client.on("ready", () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+// read our events
+fs.readdir("./events/", (err, files) => {});
+
+// load the handlers
+fs.readdir("./events/", (err, files) => {
+  files.forEach(file => {
+    const eventHandler = require(`./events/${file}`);
+  });
 });
 
-client.on('message', msg => {
-    if (msg.content === 'owo') {
-      msg.reply('uwu')
-    }
-  })
+// listen for each event
+
+fs.readdir("./events/", (err, files) => {
+  files.forEach(file => {
+    const eventHandler = require(`./events/${file}`);
+    const eventName = file.split(".")[0];
+    client.on(eventName, (...args) => eventHandler(client, ...args));
+  });
+});
 
 client.login(process.env.BOT_TOKEN);
