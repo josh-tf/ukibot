@@ -1,6 +1,7 @@
-// handler for messages
+const owo = require('../commands/owo')
+
 module.exports = (client, message) => {
-    if (message.content === "owo") {
-      message.reply("uwu");
-    }
-};
+  if (message.content.startsWith('owo')) {
+    return owo(message)
+  }
+}
