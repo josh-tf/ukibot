@@ -4,7 +4,7 @@ module.exports = {
   execute(message) {
     const member = message.mentions.members.first();
 
-    if (!message.member.hasPermission("ADMINISTRATOR"))) {
+    if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply("You need to be an admin to run this command");
     }
 
@@ -21,6 +21,6 @@ module.exports = {
     return member
       .ban()
       .then(() => message.reply(`${member.user.tag} was banned.`))
-      .catch(error => message.reply("Sorry, an error occured."));
+      .catch(error => message.reply("Sorry, an error occurred."));
   }
 };
