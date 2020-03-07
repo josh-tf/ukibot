@@ -2,7 +2,7 @@ module.exports = {
   name: "purge",
   description: "Delete the last messages in all chats.",
   async execute(message) {
-    if (!message.member.guild.me.hasPermission("ADMINISTRATOR")) {
+    if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply("You need to be an admin to run this command");
     }
 

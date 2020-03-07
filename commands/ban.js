@@ -4,7 +4,7 @@ module.exports = {
   execute(message) {
     const member = message.mentions.members.first();
 
-    if (!message.member.guild.me.hasPermission("ADMINISTRATOR")) {
+    if (!message.member.hasPermission("ADMINISTRATOR"))) {
       return message.reply("You need to be an admin to run this command");
     }
 
