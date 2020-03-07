@@ -1,18 +1,19 @@
 {
-  "name": "music-bot",
+  "name": "ukibot",
   "version": "1.0.0",
   "repository": "https://github.com/TannerGabriel/discord-music-bot.git",
-  "description": "A simple discord music bot",
+  "description": "A simple discord bot for uki's hangout",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "discord",
     "music",
     "bot"
   ],
-  "author": "Gabriel Tanner",
+  "author": "Ukiyo#0001",
   "license": "MIT",
   "dependencies": {
     "discord.js": "^11.4.2",
@@ -23,5 +24,8 @@
     "fluent-ffmpeg": "^2.1.2",
     "opusscript": "0.0.7",
     "ytdl-core": "^1.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
