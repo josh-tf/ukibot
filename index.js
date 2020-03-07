@@ -1,7 +1,7 @@
 const fs = require("fs");
 const Discord = require("discord.js");
 const Client = require("./client/Client");
-const {prefix} = require("./config.json");
+const { prefix } = require("./config.json");
 
 // for bot secret
 require("dotenv").config();
@@ -9,8 +9,9 @@ require("dotenv").config();
 const client = new Client();
 client.commands = new Discord.Collection();
 
-const commandFiles =
-    fs.readdirSync("./commands").filter(file => file.endsWith(".js"));
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter(file => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
@@ -19,25 +20,25 @@ for (const file of commandFiles) {
 
 console.log(client.commands);
 
-client.once("ready",
-            () => { console.log(`Ready, connected from ${client.user.tag}`); });
+client.once("ready", () => {
+  console.log(`Ready, connected from ${client.user.tag}`);
+});
 
-client.once("reconnecting",
-            () => { console.log(`Reconnecting as ${client.user.tag}`); });
+client.once("reconnecting", () => {
+  console.log(`Reconnecting as ${client.user.tag}`);
+});
 
-client.once(
-    "disconnect",
-    () => { console.log(`Disconnected, ${client.user.tag} is now offline`); });
+client.once("disconnect", () => {
+  console.log(`Disconnected, ${client.user.tag} is now offline`);
+});
 
 client.on("message", async message => {
   const args = message.content.slice(prefix.length).split(/ +/);
   const commandName = args.shift().toLowerCase();
   const command = client.commands.get(commandName);
 
-  if (message.author.bot)
-    return;
-  if (!message.content.startsWith(prefix))
-    return; // ignore messages from self
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return; // ignore messages from self
 
   try {
     command.execute(message);
