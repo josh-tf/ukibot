@@ -1,20 +1,51 @@
-const Discord = require("discord.js");
-const client = new Discord.Client();
 const fs = require("fs");
-
-// music feature
-const ytdl = require("ytdl-core");
+const Discord = require("discord.js");
+const Client = require("./client/Client");
+const { prefix } = require("./config.json");
 
 // for bot secret
 require("dotenv").config();
 
-// listen for each event
-fs.readdir("./events/", (err, files) => {
-  files.forEach(file => {
-    const eventHandler = require(`./events/${file}`);
-    const eventName = file.split(".")[0];
-    client.on(eventName, (...args) => eventHandler(client, ...args));
-  });
+const client = new Client();
+client.commands = new Discord.Collection();
+
+const commandFiles = fs
+  .readdirSync("./commands")
+  .filter(file => file.endsWith(".js"));
+
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.name, command);
+}
+
+console.log(client.commands);
+
+client.once("ready", () => {
+  console.log("Ready!");
+});
+
+client.once("reconnecting", () => {
+  console.log("Reconnecting!");
+});
+
+client.once("disconnect", () => {
+  console.log("Disconnect!");
+});
+
+client.on("message", async message => {
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const commandName = args.shift().toLowerCase();
+  const command = client.commands.get(commandName);
+
+  if (message.author.bot) return;
+  if (!message.content.startsWith(prefix)) return;
+
+  try {
+    command.execute(message);
+  } catch (error) {
+    console.error(error);
+    message.reply("There was an error trying to execute that command!");
+  }
 });
 
 client.login(process.env.BOT_TOKEN);
