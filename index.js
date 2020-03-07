@@ -21,15 +21,15 @@ for (const file of commandFiles) {
 console.log(client.commands);
 
 client.once("ready", () => {
-  console.log("Ready!");
+  console.log(`Ready, connected from ${client.user.tag}`);
 });
 
 client.once("reconnecting", () => {
-  console.log("Reconnecting!");
+  console.log(`Reconnecting as ${client.user.tag}`);
 });
 
 client.once("disconnect", () => {
-  console.log("Disconnect!");
+  console.log(`Disconnected, ${client.user.tag} is now offline`);
 });
 
 client.on("message", async message => {
@@ -38,7 +38,7 @@ client.on("message", async message => {
   const command = client.commands.get(commandName);
 
   if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return;
+  if (!message.content.startsWith(prefix)) return; // ignore messages from self
 
   try {
     command.execute(message);
