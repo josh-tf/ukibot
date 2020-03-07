@@ -1,20 +1,24 @@
 module.exports = {
-	name: 'kick',
-	description: 'Kick a player',
-	execute(message) {
-		const member = message.mentions.members.first();
+  name: "kick",
+  description: "Kick a player",
+  execute(message) {
+    const member = message.mentions.members.first();
 
-		if (!member) {
-			return message.reply('You need to mention the member you want to kick');
-		}
+    if (!message.member.guild.me.hasPermission("ADMINISTRATOR")) {
+      return message.reply("You need to be an admin to run this command");
+    }
 
-		if (!member.kickable) {
-			return message.reply('I can\'t kick this user.');
-		}
+    if (!member) {
+      return message.reply("You need to mention the member you want to kick");
+    }
 
-		return member
-			.kick()
-			.then(() => message.reply(`${member.user.tag} was kicked.`))
-			.catch(error => message.reply('Sorry, an error occured.'));
-	},
+    if (!member.kickable) {
+      return message.reply("I can't kick this user.");
+    }
+
+    return member
+      .kick()
+      .then(() => message.reply(`${member.user.tag} was kicked.`))
+      .catch(error => message.reply("Sorry, an error occured."));
+  }
 };
