@@ -5,18 +5,7 @@ const fs = require("fs");
 // for bot secret
 require("dotenv").config();
 
-// read our events
-fs.readdir("./events/", (err, files) => {});
-
-// load the handlers
-fs.readdir("./events/", (err, files) => {
-  files.forEach(file => {
-    const eventHandler = require(`./events/${file}`);
-  });
-});
-
 // listen for each event
-
 fs.readdir("./events/", (err, files) => {
   files.forEach(file => {
     const eventHandler = require(`./events/${file}`);
