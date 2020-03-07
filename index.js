@@ -2,13 +2,8 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 
-// load our prefix
-const {
-	prefix,
-} = require('./config.json');
-
 // music feature
-const ytdl = require('ytdl-core');
+const ytdl = require("ytdl-core");
 
 // for bot secret
 require("dotenv").config();

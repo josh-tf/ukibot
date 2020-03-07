@@ -2,6 +2,9 @@ const owo = require("../commands/owo");
 const oof = require("../commands/oof");
 const beep = require("../commands/beep");
 
+// load our prefix
+const { prefix } = require("../config.json");
+
 module.exports = (client, message) => {
   // if the message is from the bot then do nothing
   if (message.author.bot) return;
