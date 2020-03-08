@@ -14,6 +14,7 @@ function formatDate(date) {
 
 module.exports = {
   name: "userinfo",
+  admin: false,
   description: "Get information about a user.",
   execute(message) {
     const member = message.mentions.members.first();
@@ -36,7 +37,6 @@ module.exports = {
       },
       author: {
         name: "ukibot v1.0.0",
-        url: "https://discordapp.com",
         icon_url:
           "https://cdn.discordapp.com/avatars/617520090535165952/fc142a26ffbe22234d41df600553329b.png"
       },
