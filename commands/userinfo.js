@@ -68,7 +68,7 @@ module.exports = {
         },
         {
           name: "Role",
-          value: `${member.roles.name}`,
+          value: `${member.highestRole.name}`,
           inline: true
         }
       ]
