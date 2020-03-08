@@ -1,10 +1,10 @@
-const { Util } = require("discord.js");
+const {Util} = require("discord.js");
 const ytdl = require("ytdl-core");
 
 module.exports = {
-  name: "play",
-  admin: false,
-  description: "Play a song, only accepts (youtube url)",
+  name : "play",
+  admin : false,
+  description : "Play a song, only accepts (youtube url)",
   async execute(message) {
     try {
       const args = message.content.split(" ");
@@ -14,29 +14,24 @@ module.exports = {
       const voiceChannel = message.member.voiceChannel;
       if (!voiceChannel)
         return message.channel.send(
-          "You need to be in a voice channel to play music!"
-        );
+            "You need to be in a voice channel to play music!");
       const permissions = voiceChannel.permissionsFor(message.client.user);
       if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
         return message.channel.send(
-          "I need the permissions to join and speak in your voice channel!"
-        );
+            "I need the permissions to join and speak in your voice channel!");
       }
 
       const songInfo = await ytdl.getInfo(args[1]);
-      const song = {
-        title: songInfo.title,
-        url: songInfo.video_url
-      };
+      const song = {title : songInfo.title, url : songInfo.video_url};
 
       if (!serverQueue) {
         const queueContruct = {
-          textChannel: message.channel,
-          voiceChannel: voiceChannel,
-          connection: null,
-          songs: [],
-          volume: 5,
-          playing: true
+          textChannel : message.channel,
+          voiceChannel : voiceChannel,
+          connection : null,
+          songs : [],
+          volume : 5,
+          playing : true
         };
 
         queue.set(message.guild.id, queueContruct);
@@ -55,8 +50,7 @@ module.exports = {
       } else {
         serverQueue.songs.push(song);
         return message.channel.send(
-          `${song.title} has been added to the queue!`
-        );
+            `${song.title} has been added to the queue!`);
       }
     } catch (error) {
       console.log(error);
@@ -76,15 +70,14 @@ module.exports = {
     }
 
     const dispatcher = serverQueue.connection
-      .playStream(ytdl(song.url, { fliter: "audioonly" }))
-      .on("end", () => {
-        console.log("Music ended!");
-        serverQueue.songs.shift();
-        this.play(message, serverQueue.songs[0]);
-      })
-      .on("error", error => {
-        console.error(error);
-      });
+                           .playStream(ytdl(song.url, {fliter : "audioonly"}))
+                           .on("end",
+                               () => {
+                                 console.log("Music ended!");
+                                 serverQueue.songs.shift();
+                                 this.play(message, serverQueue.songs[0]);
+                               })
+                           .on("error", error => { console.error(error); });
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
   }
 };
