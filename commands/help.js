@@ -53,7 +53,7 @@ module.exports = {
       var cmdName = `${command.name}`;
       //var cmdAdmin = `${command.admin}`;
       var cmdDesc = `${command.description}`;
-      embed.addField(`${prefix} ${cmdName}`, cmdDesc);
+      embed.addField(`${prefix}${cmdName}`, cmdDesc);
       //embed.fields[cmdName] = cmdDesc;
     }
     message.channel.send(embed);
