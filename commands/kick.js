@@ -1,7 +1,7 @@
 module.exports = {
-  name: "kick",
-  admin: true,
-  description: "Kick a player",
+  name : "kick",
+  admin : true,
+  description : "Kick a player",
   execute(message) {
     const member = message.mentions.members.first();
 
@@ -17,9 +17,8 @@ module.exports = {
       return message.reply("I can't kick this user.");
     }
 
-    return member
-      .kick()
-      .then(() => message.reply(`${member.user.tag} was kicked.`))
-      .catch(error => message.reply("Sorry, an error occurred."));
+    return member.kick()
+        .then(() => message.reply(`${member.user.tag} was kicked.`))
+        .catch(error => message.reply("Sorry, an error occurred."));
   }
 };
