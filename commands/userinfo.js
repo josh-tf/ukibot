@@ -14,6 +14,7 @@ function formatDate(date) {
 
 module.exports = {
   name: "userinfo",
+  admin: false,
   description: "Get information about a user.",
   execute(message) {
     const member = message.mentions.members.first();

@@ -1,5 +1,6 @@
 module.exports = {
   name: "ban",
+  admin: true,
   description: "Ban a player",
   execute(message) {
     const member = message.mentions.members.first();
