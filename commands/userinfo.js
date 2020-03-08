@@ -15,7 +15,7 @@ function formatDate(date) {
 module.exports = {
   name: "userinfo",
   admin: false,
-  description: "Get information about a user.",
+  description: "Get information about a user in the server",
   execute(message) {
     const member = message.mentions.members.first();
     const user = member.user;

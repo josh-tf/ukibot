@@ -5,6 +5,11 @@ module.exports = {
   admin: false,
   description: "Reply with oof in all caps",
   execute(message) {
-    message.channel.send(`OOF !`);
+    const embed = {
+      description:
+        "▒██████╗▒   ▒██████╗▒   ███████╗\n██╔═══██╗   ██╔═══██╗   ██╔════╝\n██║▒▒▒██║   ██║▒▒▒██║   █████╗▒▒\n██║▒▒▒██║   ██║▒▒▒██║   ██╔══╝▒▒\n╚██████╔╝   ╚██████╔╝   ██║▒▒▒▒▒\n▒╚═════╝▒   ▒╚═════╝▒   ╚═╝▒▒▒▒▒   ",
+      color: 16728873
+    };
+    message.channel.send({ embed });
   }
 };

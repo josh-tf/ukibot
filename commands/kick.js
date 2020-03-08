@@ -1,7 +1,7 @@
 module.exports = {
   name: "kick",
   admin: true,
-  description: "Kick a player",
+  description: "Kick a player from the server (admin only)",
   execute(message) {
     const member = message.mentions.members.first();
 
