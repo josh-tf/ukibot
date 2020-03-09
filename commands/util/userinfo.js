@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const { Command } = require("discord.js-commando");
 
 function formatDate(date) {
   var d = new Date(date),
@@ -12,11 +12,18 @@ function formatDate(date) {
   return [day, month, year].join("/");
 }
 
-module.exports = {
-  name: "userinfo",
-  admin: false,
-  description: "Get information about a user in the server",
-  execute(message) {
+module.exports = class UserinfoCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "userinfo",
+      group: "util",
+      memberName: "userinfo",
+      description: "Get information about a user in the server",
+      guildOnly: true
+    });
+  }
+
+  run(message) {
     const member = message.mentions.members.first();
     const user = member.user;
 
@@ -73,6 +80,6 @@ module.exports = {
         }
       ]
     };
-    message.channel.send({ embed });
+    message.say({ embed });
   }
 };

@@ -1,8 +1,17 @@
-module.exports = {
-  name: "ban",
-  admin: true,
-  description: "Ban a player from the server (admin only)",
-  execute(message) {
+const { Command } = require("discord.js-commando");
+
+module.exports = class BanCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "ban",
+      group: "mod",
+      memberName: "ban",
+      description: "Ban a player from the server",
+      guildOnly: true
+    });
+  }
+
+  run(message) {
     const member = message.mentions.members.first();
 
     if (!message.member.hasPermission("ADMINISTRATOR")) {

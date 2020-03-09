@@ -1,8 +1,17 @@
-module.exports = {
-  name: "kick",
-  admin: true,
-  description: "Kick a player from the server (admin only)",
-  execute(message) {
+const { Command } = require("discord.js-commando");
+
+module.exports = class KickCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "kick",
+      group: "mod",
+      memberName: "kick",
+      description: "Kick a player from the server",
+      guildOnly: true
+    });
+  }
+
+  run(message) {
     const member = message.mentions.members.first();
 
     if (!message.member.hasPermission("ADMINISTRATOR")) {
