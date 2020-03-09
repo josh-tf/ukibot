@@ -1,9 +1,17 @@
-module.exports = {
-  name: "daddy",
-  admin: false,
-  description: "Owo who is my daddy",
-  execute(message) {
-    const member = message.mentions.members.first();
+const { Command } = require("discord.js-commando");
+
+module.exports = class DaddyCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "daddy",
+      group: "fun",
+      memberName: "daddy",
+      description: "Owo who is my daddy",
+      guildOnly: true // moves in to a specific group
+    });
+  }
+
+  run(message) {
     const author = message.author.username;
 
     const embed = {
@@ -19,6 +27,6 @@ module.exports = {
       message.reply("owo, adding you to the daddy role!");
     }
 
-    message.channel.send({ embed });
+    message.say({ embed });
   }
 };

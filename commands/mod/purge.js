@@ -1,7 +1,17 @@
-module.exports = {
-  name: "purge",
-  description: "Delete messages from the chat (admin only)",
-  async execute(message) {
+const { Command } = require("discord.js-commando");
+
+module.exports = class PurgeCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "purge",
+      group: "mod",
+      memberName: "purge",
+      description: "Delete messages from the chat",
+      guildOnly: true
+    });
+  }
+
+  async run(message) {
     if (!message.member.hasPermission("ADMINISTRATOR")) {
       return message.reply("You need to be an admin to run this command");
     }

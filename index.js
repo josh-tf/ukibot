@@ -1,27 +1,41 @@
 const fs = require("fs");
-const Discord = require("discord.js");
-const Client = require("./client/Client");
+const { Client, Collection } = require("discord.js");
+const Commando = require("discord.js-commando");
+
 const { prefix } = require("./config.json");
+
+// create commando client
+const client = new Commando.Client({
+  //!todo: switch back to class based
+  commandPrefix: prefix,
+  owner: "207101146513276928"
+});
+
+const path = require("path");
+
+client.commands = new Collection();
+client.queue = new Map();
+
+client.registry
+
+  // Registers your custom command groups
+  .registerGroups([
+    ["fun", "Fun commands"],
+    ["misc", "Misc commands"],
+    ["music", "Music bot commands"],
+    ["mod", "Moderator commands"]
+  ])
+
+  // register defaults and all commands in folder
+  .registerDefaults()
+  .registerCommandsIn(path.join(__dirname, "commands"));
 
 // for bot secret
 require("dotenv").config();
 
-const client = new Client();
-client.commands = new Discord.Collection();
-
-const commandFiles = fs
-  .readdirSync("./commands")
-  .filter(file => file.endsWith(".js"));
-
-for (const file of commandFiles) {
-  const command = require(`./commands/${file}`);
-  client.commands.set(command.name, command);
-}
-
-console.log(client.commands);
-
 client.once("ready", () => {
   console.log(`Ready, connected from ${client.user.tag}`);
+  client.user.setActivity("running discord.js-commando");
 });
 
 client.once("reconnecting", () => {
@@ -32,20 +46,9 @@ client.once("disconnect", () => {
   console.log(`Disconnected, ${client.user.tag} is now offline`);
 });
 
-client.on("message", async message => {
-  const args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
-  const command = client.commands.get(commandName);
-
-  if (message.author.bot) return;
-  if (!message.content.startsWith(prefix)) return; // ignore messages from self
-
-  try {
-    command.execute(message);
-  } catch (error) {
-    console.error(error);
-    message.reply("There was an error trying to execute that command!");
-  }
+// to help with any debug
+process.on("unhandledRejection", error => {
+  console.error(`Uncaught Promise Error: \n${error.stack}`);
 });
 
 client.login(process.env.BOT_TOKEN);

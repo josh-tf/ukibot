@@ -1,11 +1,19 @@
 const { Util } = require("discord.js");
+const { Command } = require("discord.js-commando");
 const ytdl = require("ytdl-core");
 
-module.exports = {
-  name: "play",
-  admin: false,
-  description: "Play a song, only accepts (youtube url)",
-  async execute(message) {
+module.exports = class PlayCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "play",
+      group: "music",
+      memberName: "play",
+      description: "Play a song, only accepts (youtube url)",
+      guildOnly: true
+    });
+  }
+
+  async run(message) {
     try {
       const args = message.content.split(" ");
       const queue = message.client.queue;
@@ -62,7 +70,7 @@ module.exports = {
       console.log(error);
       message.channel.send(error.message);
     }
-  },
+  }
 
   play(message, song) {
     const queue = message.client.queue;

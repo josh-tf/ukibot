@@ -1,7 +1,17 @@
-module.exports = {
-  name: "skip",
-  description: "Skip the current playing song",
-  execute(message) {
+const { Command } = require("discord.js-commando");
+
+module.exports = class SkipCommand extends Command {
+  constructor(client) {
+    super(client, {
+      name: "skip",
+      group: "music",
+      memberName: "skip",
+      description: "Skip the current playing song",
+      guildOnly: true
+    });
+  }
+
+  run(message) {
     const serverQueue = message.client.queue.get(message.guild.id);
     if (!message.member.voiceChannel)
       return message.channel.send(
