@@ -1,13 +1,13 @@
-const { Command } = require("discord.js-commando");
+const {Command} = require("discord.js-commando");
 
 module.exports = class KickCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "kick",
-      group: "mod",
-      memberName: "kick",
-      description: "Kick a player from the server",
-      guildOnly: true
+      name : "kick",
+      group : "mod",
+      memberName : "kick",
+      description : "Kick a player from the server",
+      guildOnly : true
     });
   }
 
@@ -26,9 +26,8 @@ module.exports = class KickCommand extends Command {
       return message.reply("I can't kick this user.");
     }
 
-    return member
-      .kick()
-      .then(() => message.reply(`${member.user.tag} was kicked.`))
-      .catch(error => message.reply("Sorry, an error occurred."));
+    return member.kick()
+        .then(() => message.reply(`${member.user.tag} was kicked.`))
+        .catch(error => message.reply("Sorry, an error occurred."));
   }
 };
