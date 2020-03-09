@@ -35,7 +35,7 @@ require("dotenv").config();
 
 client.once("ready", () => {
   console.log(`Ready, connected from ${client.user.tag}`);
-  client.user.setActivity("running discord.js-commando");
+  client.user.setActivity(`uwu ${prefix}help`);
 });
 
 client.once("reconnecting", () => {
