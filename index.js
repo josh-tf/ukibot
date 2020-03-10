@@ -6,7 +6,7 @@ const { prefix } = require("./config.json");
 
 // create commando client
 const client = new Commando.Client({
-  //!todo: switch back to class based
+  //! todo: switch back to class based
   commandPrefix: prefix,
   owner: "207101146513276928"
 });
